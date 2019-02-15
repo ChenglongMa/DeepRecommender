@@ -12,20 +12,22 @@ parser.add_argument('--round', action='store_true',
 args = parser.parse_args()
 print(args)
 
+
 def main():
-  with open(args.path_to_predictions, 'r') as inpt:
-    lines = inpt.readlines()
-    n = 0
-    denom = 0.0
-    for line in lines:
-      parts = line.split('\t')
-      prediction = float(parts[2]) if not args.round else round(float(parts[2]))
-      rating = float(parts[3])
-      denom += (prediction - rating)*(prediction - rating)
-      n += 1
-  print("####################")
-  print("RMSE: {}".format(sqrt(denom/n)))
-  print("####################")
+    with open(args.path_to_predictions, 'r') as inpt:
+        lines = inpt.readlines()
+        n = 0
+        denom = 0.0
+        for line in lines:
+            parts = line.split('\t')
+            prediction = float(parts[2]) if not args.round else round(float(parts[2]))
+            rating = float(parts[3])
+            denom += (prediction - rating) * (prediction - rating)
+            n += 1
+    print("####################")
+    print("RMSE: {}".format(sqrt(denom / n)))
+    print("####################")
+
 
 if __name__ == '__main__':
-  main()
+    main()
