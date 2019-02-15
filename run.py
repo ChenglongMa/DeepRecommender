@@ -1,19 +1,21 @@
 # Copyright (c) 2017 NVIDIA Corporation
-import torch
 import argparse
+import copy
+import os
+import time
+from math import sqrt
+from pathlib import Path
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.autograd import Variable
+from torch.optim.lr_scheduler import MultiStepLR
+
+from logger import Logger
 from reco_encoder.data import input_layer
 from reco_encoder.model import model
-import torch.optim as optim
-from torch.optim.lr_scheduler import MultiStepLR
-import torch.nn as nn
-from torch.autograd import Variable
-import copy
-import time
-from pathlib import Path
-from logger import Logger
-from math import sqrt
-import numpy as np
-import os
 
 parser = argparse.ArgumentParser(description='RecoEncoder')
 parser.add_argument('--lr', type=float, default=0.00001, metavar='N',
@@ -115,6 +117,7 @@ def main():
     params['userIdInd'] = 0
     params['extension'] = '.csv'
     params['delimiter'] = ','
+    params['header'] = 1
 
     print("Loading training data")
     data_layer = input_layer.UserItemRecDataProvider(params=params)
