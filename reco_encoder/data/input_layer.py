@@ -54,8 +54,12 @@ class UserItemRecDataProvider:
                     parts = line.strip().split(self._delimiter)
                     if len(parts) < 3:
                         raise ValueError('Encountered badly formatted line in {}'.format(source_file))
-                    key = major_map[int(parts[self._major_ind])]
-                    value = minor_map[int(parts[self._minor_ind])]
+                    u_id = int(parts[self._major_ind])
+                    i_id = int(parts[self._minor_ind])
+                    if u_id not in major_map or i_id not in minor_map:
+                        continue
+                    key = major_map[u_id]
+                    value = minor_map[i_id]
                     rating = float(parts[self._r_id])
                     # print("Key: {}, Value: {}, Rating: {}".format(key, value, rating))
                     if key not in self.data:
