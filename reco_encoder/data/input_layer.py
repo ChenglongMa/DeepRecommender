@@ -44,11 +44,12 @@ class UserItemRecDataProvider:
         self._batch_size = self.params['batch_size']
 
         self.data = dict()
-
+        h = self._header
         for source_file in src_files:
             with open(source_file, 'r') as src:
                 for line in src.readlines():
-                    for i in range(self._header):
+                    if h > 0:
+                        h -= 1
                         continue
                     parts = line.strip().split(self._delimiter)
                     if len(parts) < 3:
@@ -74,10 +75,12 @@ class UserItemRecDataProvider:
 
         u_id = 0
         i_id = 0
+        h = self._header
         for source_file in src_files:
             with open(source_file, 'r') as src:
                 for line in src.readlines():
-                    for i in range(self._header):
+                    if h > 0:
+                        h -= 1
                         continue
                     parts = line.strip().split(self._delimiter)
                     if len(parts) < 3:
