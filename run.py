@@ -128,6 +128,7 @@ def main():
     print("Loading eval data")
     eval_params = copy.deepcopy(params)
     # NOTE: must set eval batch size to 1 to make sure no examples are missed
+    eval_params['batch_size'] = 1
     eval_params['data_dir'] = args.path_to_eval_data
     eval_data_layer = input_layer.UserItemRecDataProvider(params=eval_params,
                                                           user_id_map=data_layer.userIdMap,  # the mappings are provided

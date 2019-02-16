@@ -1,11 +1,13 @@
 # Copyright (c) 2017 NVIDIA Corporation
-import torch
 import argparse
 import copy
+from pathlib import Path
+
+import torch
+from torch.autograd import Variable
+
 from reco_encoder.data import input_layer
 from reco_encoder.model import model
-from torch.autograd import Variable
-from pathlib import Path
 
 parser = argparse.ArgumentParser(description='RecoEncoder')
 
@@ -45,6 +47,9 @@ def main():
     params['major'] = 'users'
     params['itemIdInd'] = 1
     params['userIdInd'] = 0
+    params['extension'] = '.csv'
+    params['delimiter'] = ','
+    params['header'] = 1
     print("Loading training data")
     data_layer = input_layer.UserItemRecDataProvider(params=params)
     print("Data loaded")
