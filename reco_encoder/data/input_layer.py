@@ -34,9 +34,12 @@ class UserItemRecDataProvider:
         self._vector_dim = len(minor_map)
 
         # TODO: change here
-        src_files = [path.join(self._data_dir, f)
-                     for f in listdir(self._data_dir)
-                     if path.isfile(path.join(self._data_dir, f)) and f.endswith(self._extension)]
+        if path.isfile(self._data_dir):
+            src_files = [self._data_dir]
+        else:
+            src_files = [path.join(self._data_dir, f)
+                         for f in listdir(self._data_dir)
+                         if path.isfile(path.join(self._data_dir, f)) and f.endswith(self._extension)]
 
         self._batch_size = self.params['batch_size']
 
@@ -62,9 +65,12 @@ class UserItemRecDataProvider:
         self._user_id_map = dict()
         self._item_id_map = dict()
 
-        src_files = [path.join(self._data_dir, f)
-                     for f in listdir(self._data_dir)
-                     if path.isfile(path.join(self._data_dir, f)) and f.endswith(self._extension)]
+        if path.isfile(self._data_dir):
+            src_files = [self._data_dir]
+        else:
+            src_files = [path.join(self._data_dir, f)
+                         for f in listdir(self._data_dir)
+                         if path.isfile(path.join(self._data_dir, f)) and f.endswith(self._extension)]
 
         u_id = 0
         i_id = 0
